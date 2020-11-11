@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -25,7 +25,7 @@
                      <font>
                         <Font size="12.0" />
                      </font></Button>
-                        <Label id="titleOfNoteLabel" fx:id="titleOfNoteLabel" layoutX="125.0" layoutY="4.0" prefHeight="17.0" prefWidth="341.0" text="titleOfNote" textAlignment="RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TextField fx:id="titleOfNoteField" layoutX="119.0" layoutY="-2.0" prefHeight="27.0" prefWidth="317.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
@@ -34,7 +34,7 @@
                             <items>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="364.0" prefWidth="107.0" SplitPane.resizableWithParent="false">
                                     <children>
-                                        <ListView id="listView" fx:id="listView" prefHeight="364.0" prefWidth="118.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                        <ListView id="listView" fx:id="listView" onMouseClicked="#updateAction" prefHeight="364.0" prefWidth="118.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children></AnchorPane>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="364.0" prefWidth="473.0">
                                     <children>

@@ -27,10 +27,9 @@ public class Note {
 
     //Constructor for a note object
 
-    // This may need to be adapted to hold a note title String Object in it....
+
     public Note(String note, String noteTitle) {
         this.note.set(note);
-
         this.noteTitle.set(noteTitle);
     }
 
@@ -74,6 +73,6 @@ public class Note {
 
 
     public String toString() {
-        return note.get();
+        return noteTitle.get();
     }
 }
