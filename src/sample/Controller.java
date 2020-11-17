@@ -220,6 +220,7 @@ public class Controller implements Initializable {
 
 
 
+    // this does not work
 
     @FXML
     public void makeBold(ActionEvent actionEvent) {
@@ -247,12 +248,6 @@ public class Controller implements Initializable {
 
 
 
-
-
-
-
-
-
     class autoUpdate extends TimerTask {
         public void run() {
             updateNote();
@@ -260,5 +255,6 @@ public class Controller implements Initializable {
         }
     }
 }
+
 
 
