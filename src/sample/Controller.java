@@ -2,6 +2,7 @@ package sample;
 
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.beans.property.BooleanProperty;
@@ -13,12 +14,21 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import sample.BlankNote;
 
 
 import javax.swing.*;
+import javax.swing.text.StyledEditorKit;
+import java.awt.*;
 import java.awt.event.MouseListener;
 import java.net.URL;
 import java.util.*;
@@ -35,13 +45,19 @@ public class Controller implements Initializable {
     @FXML
     private TextArea notesAreaTextArea;
     @FXML
-    private Button saveButton;
+    private Button deleteButton;
     @FXML
     private Button newNoteButton;
     @FXML
     private ListView<Note> listView;
     @FXML
     private MenuItem exitButton;
+    @FXML
+    private MenuItem redMenuItemButton;
+    @FXML
+    private MenuItem greenMenutItemButton;
+    @FXML
+    private MenuItem blueMenuItemButton;
 
 
     //This is the observable list we will see on the left side of application which
@@ -85,6 +101,10 @@ public class Controller implements Initializable {
 
 
         //This autoUpdate() only saves the current note that is selected
+
+        //This also seems to occur once - need to get it to repeat --
+
+        
         Timer timer = new Timer();
         timer.schedule(new autoUpdate(),60000);
 
@@ -103,7 +123,7 @@ public class Controller implements Initializable {
                 });
 
         listView.getSelectionModel().selectFirst();
-
+        enableSelectText();
     }
 
     @FXML
@@ -121,6 +141,7 @@ public class Controller implements Initializable {
     }
 
 
+
     //This method will set the modified property to be true whenever a key is pressed - i.e someone
     //types something in the notes area
     @FXML
@@ -129,42 +150,107 @@ public class Controller implements Initializable {
     }
 
 
-    @FXML
-    public void saveButton(ActionEvent actionEvent) {
 
-    }
+    //THe AutoUpdate has a problem, once you are typing the notes area, the
+    // note in the listview get deselected -- so the autoupdate needs to keep
+    // track of the note that's being typed in
 
+    //If it is too difficult to do, we need to modify the existing autosave model
+    // where the listview is selected
 
     public void updateNote() {
-
         Note selectedNote = listView.getSelectionModel().getSelectedItem();
-
-
         listView.getSelectionModel().selectedItemProperty().removeListener(noteChangeListener);
         selectedNote.setNote(notesAreaTextArea.getText());
         selectedNote.setNoteTitle(titleOfNoteField.getText());
         listView.getSelectionModel().selectedItemProperty().addListener(noteChangeListener);
         modifiedProperty.set(false);
+    }
 
+    @FXML
+    public void deleteButton(ActionEvent actionEvent) {
+        listView.getSelectionModel().selectedItemProperty().removeListener(noteChangeListener);
+        Note selectedNote = listView.getSelectionModel().getSelectedItem();
+        notesList.remove(selectedNote);
+
+        titleOfNoteField.setText("New Note");
+        listView.getSelectionModel().selectedItemProperty().addListener(noteChangeListener);
 
     }
 
-    public void exitProgram(ActionEvent actionEvent) {
 
-        //There should be an save before exiting prompt which has a saveAll button
-        System.exit(0);
+
+    //This is the method we will use to get the selected text in a text area
+    // and apply modifications to that selected text
+    public void enableSelectText(){
+
+        notesAreaTextArea.setOnContextMenuRequested(new EventHandler<Event>() {
+            @Override
+            public void handle(Event arg0) {
+                System.out.println("selected text:"
+                        + notesAreaTextArea.getSelectedText());
+            }
+        });
+        }
+
+        //These dont do anything yet
+        //need to figure out why
+
+    @FXML
+    public void changeColorRed(ActionEvent actionEvent) {
+        String selectedText = notesAreaTextArea.getSelectedText();
+        Text text = new Text(30,80,selectedText);
+        text.setFill(Color.RED);
+
+    }
+    @FXML
+    public void changeColorBlue(ActionEvent actionEvent) {
+        String selectedText = notesAreaTextArea.getSelectedText();
+        Text text = new Text(30,80,selectedText);
+        text.setFill(Color.BLUE);
+    }
+
+    @FXML
+    public void changeColorGreen(ActionEvent actionEvent) {
+        String selectedText = notesAreaTextArea.getSelectedText();
+        Text text = new Text(30,80,selectedText);
+        text.setFill(Color.GREEN);
+
     }
 
 
-    //OK SO THIS... its on a mouse event, so the idea is if the mouse is clicked
-    // in the listview it saves,
-    //But....
-    //It only saves if it is selected on the listview item
 
 
-    public void updateAction(MouseEvent arg0) {
-        System.out.println(listView.getSelectionModel().getSelectedItem() + "was saved");
+    @FXML
+    public void makeBold(ActionEvent actionEvent) {
+
+        //Get selected Text
+        String selectedText = notesAreaTextArea.getSelectedText();
+
+        //Make a text Object and make that text bold
+        Text StringToText = new Text();
+        StringToText.setText(selectedText);
+        StringToText.setFont(javafx.scene.text.Font.font(Font.BOLD));
+
+        //Turn that text back into a string
+        String boldText = StringToText.getText();
+
+        notesAreaTextArea.getSelectedText().replace(notesAreaTextArea.getSelectedText(),boldText);
+
     }
+    @FXML
+    public void makeItalics(ActionEvent actionEvent) {
+    }
+    @FXML
+    public void makeUnderline(ActionEvent actionEvent) {
+    }
+
+
+
+
+
+
+
 
 
     class autoUpdate extends TimerTask {
@@ -173,7 +259,6 @@ public class Controller implements Initializable {
             System.out.println("Update Successful");
         }
     }
-
 }
 
 

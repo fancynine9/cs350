@@ -21,7 +21,7 @@
                      <font>
                         <Font size="12.0" />
                      </font></Button>
-                        <Button id="saveButton" fx:id="saveButton" layoutX="560.0" layoutY="-1.0" mnemonicParsing="false" onAction="#saveButton" prefHeight="22.0" prefWidth="59.0" text="Save" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Button id="saveButton" fx:id="deleteButton" layoutX="560.0" layoutY="-1.0" mnemonicParsing="false" onAction="#deleteButton" prefHeight="22.0" prefWidth="59.0" text="Delete" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font size="12.0" />
                      </font></Button>
@@ -34,7 +34,7 @@
                             <items>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="364.0" prefWidth="107.0" SplitPane.resizableWithParent="false">
                                     <children>
-                                        <ListView id="listView" fx:id="listView" onMouseClicked="#updateAction" prefHeight="364.0" prefWidth="118.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                        <ListView id="listView" fx:id="listView"  prefHeight="364.0" prefWidth="118.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children></AnchorPane>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="364.0" prefWidth="473.0">
                                     <children>
@@ -49,17 +49,21 @@
         </SplitPane>
       <MenuBar layoutX="1.0" layoutY="-29.0" prefHeight="29.0" prefWidth="600.0" AnchorPane.topAnchor="0.0">
         <menus>
-          <Menu fx:id="fontButton" mnemonicParsing="false" text="Font">
+          <Menu fx:id="fontButton" mnemonicParsing="false" text="Text">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem fx:id="boldMenuItem" mnemonicParsing="false" onAction="#makeBold" text="Bold" />
+              <MenuItem fx:id="italicsMenuItem" mnemonicParsing="false" onAction="#makeItalics" text="Italics" />
+                  <MenuItem fx:id="underlineMenuItem" mnemonicParsing="false" onAction="#makeUnderline" text="Underline" />
             </items>
           </Menu>
           <Menu fx:id="colorButton" mnemonicParsing="false" text="Color">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem fx:id="redMenuItemButton" mnemonicParsing="false" onAction="#changeColorRed" text="Red" />
+                  <MenuItem fx:id="greenMenutItemButton" mnemonicParsing="false" onAction="#changeColorGreen" text="Green" />
+                  <MenuItem fx:id="blueMenuItemButton" mnemonicParsing="false" onAction="#changeColorBlue" text="Blue" />
             </items>
           </Menu>
-          <Menu fx:id="exitButton" mnemonicParsing="false" onAction="#exitProgram" text="Exit">
+          <Menu fx:id="propertiesButton" mnemonicParsing="false" text="Properties">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
             </items>
